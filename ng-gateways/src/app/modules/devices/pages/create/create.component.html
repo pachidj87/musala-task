@@ -1,0 +1,61 @@
+<!-- Resources -->
+<h2 class="uk-text-center uk-margin-large">Create new Device for <b *ngIf="gatewayName">&lt;{{ gatewayName }}&gt;</b> </h2>
+<p class="uk-text-center uk-margin-large">Enter all device data bellow:</p>
+
+<!-- Toolbar -->
+<nav class="uk-navbar-container uk-margin-large" uk-navbar role="toolbar">
+
+  <div class="uk-navbar-left">
+    <ul class="uk-navbar-nav">
+      <li><a disabled>Device actions</a></li>
+    </ul>
+  </div>
+
+  <div class="uk-navbar-right">
+      <ul class="uk-navbar-nav">
+          <li class="uk-active">
+            <div class="uk-navbar-item">
+              <button class="uk-button uk-button-default" [routerLink]="'/devices/gateway/' + gatewayId"><i class="uk-icon uk-margin-small-right" uk-icon="list"></i>Back to list</button>
+            </div>
+          </li>
+      </ul>
+  </div>
+
+</nav>
+
+<div class="card">
+  <form [formGroup]="form" (submit)="submit()">
+    <fieldset class="uk-fieldset">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="uid">UID <span class="uk-text-danger">*</span></label>
+        <input formControlName="uid" class="uk-input" type="text" id="uid" placeholder="Type device UID" required>
+        <div class="uk-text-meta">Ex: 1823967084984742</div>
+        <div class="uk-text-danger uk-text-sm" *ngIf="form.controls.uid.touched && form.controls.uid.dirty && form.controls.uid.hasError('pattern')">
+          Please provide only digits
+        </div>
+        <div class="uk-text-danger uk-text-sm" *ngIf="form.controls.uid.touched && form.controls.uid.dirty && form.controls.uid.hasError('required')">
+          Please provide an UID
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="vendor">Vendor <span class="uk-text-danger">*</span></label>
+        <input formControlName="vendor" class="uk-input" type="text" id="vendor" placeholder="Type the vendor" required>
+        <div class="uk-text-danger uk-text-sm" *ngIf="form.controls.vendor.touched && form.controls.vendor.dirty && form.controls.vendor.hasError('required')">
+          Please provide a name
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="status">Status</label>
+        <select formControlName="status" class="uk-select" id="status" name="status">
+          <option [value]="Status.online" selected>Online</option>
+          <option [value]="Status.offline">Offline</option>
+        </select>
+      </div>
+
+      <div class="uk-margin">
+        <button class="uk-button uk-button-primary" type="submit" [disabled]="!form.valid">Save</button>
+      </div>
+    </fieldset>
+
+  </form>
+</div>

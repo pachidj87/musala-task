@@ -1,0 +1,65 @@
+<!-- Resources -->
+<h2 class="uk-text-center uk-margin-large">Create new Gateway</h2>
+<p class="uk-text-center uk-margin-large">Enter all gateay data bellow:</p>
+
+<!-- Toolbar -->
+<nav class="uk-navbar-container uk-margin-large" uk-navbar role="toolbar">
+
+  <div class="uk-navbar-left">
+    <ul class="uk-navbar-nav">
+      <li><a disabled>Gateway actions</a></li>
+    </ul>
+  </div>
+
+  <div class="uk-navbar-right">
+      <ul class="uk-navbar-nav">
+          <li class="uk-active">
+            <div class="uk-navbar-item">
+              <button class="uk-button uk-button-default" routerLink="/gateways"><i class="uk-icon uk-margin-small-right" uk-icon="list"></i>Back to list</button>
+            </div>
+          </li>
+      </ul>
+  </div>
+
+</nav>
+
+<div class="card">
+  <form [formGroup]="form" (submit)="submit()">
+    <fieldset class="uk-fieldset">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="serial_number">Serial number <span class="uk-text-danger">*</span></label>
+        <input formControlName="serial_number" class="uk-input" type="text" id="serial_number" placeholder="Type gateway serial number" required>
+        <div class="uk-text-meta">Ex: 0000000001</div>
+        <div class="uk-text-danger uk-text-sm" *ngIf="form.controls.serial_number.touched && form.controls.serial_number.dirty && form.controls.serial_number.hasError('pattern')">
+          Please provide an only digits serial number
+        </div>
+        <div class="uk-text-danger uk-text-sm" *ngIf="form.controls.serial_number.touched && form.controls.serial_number.dirty && form.controls.serial_number.hasError('required')">
+          Please provide a serial number
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="gateway_name">Name <span class="uk-text-danger">*</span></label>
+        <input formControlName="gateway_name" class="uk-input" type="text" id="gateway_name" placeholder="Type gateway name" required>
+        <div class="uk-text-danger uk-text-sm" *ngIf="form.controls.gateway_name.touched && form.controls.gateway_name.dirty && form.controls.gateway_name.hasError('required')">
+          Please provide a name
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="ip_v4_address">IP4 Address <span class="uk-text-danger">*</span></label>
+        <input formControlName="ip_v4_address" class="uk-input" type="text" id="ip_v4_address" placeholder="Type an IP Address" required>
+        <div class="uk-text-meta">Ex: 192.168.0.1</div>
+        <div class="uk-text-danger uk-text-sm" *ngIf="form.controls.ip_v4_address.touched && form.controls.ip_v4_address.dirty && form.controls.ip_v4_address.hasError('pattern')">
+          Please provide a valid IP address
+        </div>
+        <div class="uk-text-danger uk-text-sm" *ngIf="form.controls.ip_v4_address.touched && form.controls.ip_v4_address.dirty && form.controls.ip_v4_address.hasError('required')">
+          Please provide an IP address
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <button class="uk-button uk-button-primary" type="submit" [disabled]="!form.valid">Save</button>
+      </div>
+    </fieldset>
+
+  </form>
+</div>

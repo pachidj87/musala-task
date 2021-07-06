@@ -1,0 +1,48 @@
+version: '3.7'
+
+services: 
+  db:
+    image: mongo:latest
+    container_name: 'gateways-mongo-database-server'
+    ports: 
+      - 27017:27017
+  
+  api:
+    build:
+      context: .
+      dockerfile: ./gateways/Dockerfile
+      # Could be development | production
+      target: development
+    volumes:
+      - .:/usr/src/app/frontend
+      - /usr/src/app/frontend/node_modules
+    container_name: 'gateways-nestjs-backend-server'
+    env_file: ./gateways/.env
+    ports:
+      - 3000:3000
+    # Write npm run start for production 
+    command: npm run start:dev
+    networks:
+      - webnet
+    depends_on:
+      - db
+      
+  web:
+    build:
+      context: .
+      dockerfile: ./ng-gateways/Dockerfile
+      # Could be development | production
+      target: development
+    volumes:
+      - .:/usr/src/app/backend
+      - /usr/src/app/backend/node_modules
+    container_name: 'gateways-angular-frontend-app'
+    ports:
+      - 9000:80
+    networks:
+      - webnet
+    depends_on:
+      - api
+      
+networks:
+  webnet:

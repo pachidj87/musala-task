@@ -1,0 +1,42 @@
+<!-- Resources -->
+<h2 class="uk-text-center uk-margin-large">Devices list of <b *ngIf="gatewayName">&lt;{{ gatewayName }}&gt;</b> </h2>
+<p class="uk-text-center uk-margin-large">Manage every device on the selected gateway:</p>
+
+
+<!-- Toolbar -->
+<nav class="uk-navbar-container uk-margin-large" uk-navbar role="toolbar">
+
+  <div class="uk-navbar-left">
+    <ul class="uk-navbar-nav">
+      <li><a disabled>Device actions</a></li>
+    </ul>
+  </div>
+
+  <div class="uk-navbar-right">
+      <ul class="uk-navbar-nav">
+          <li class="uk-active">
+            <div class="uk-navbar-item">
+              <button class="uk-button uk-button-default" (click)="redraw()"><i class="uk-icon uk-margin-small-right" uk-icon="refresh"></i>Reload list</button>
+              <button class="uk-button uk-button-default" routerLink="/gateways"><i class="uk-icon uk-margin-small-right" uk-icon="list"></i>Gateways</button>
+              <button *ngIf="gatewayId && !maxReached" class="uk-button uk-button-primary" [routerLink]="'/devices/gateway/' + gatewayId + '/create'"><i class="uk-icon uk-margin-small-right" uk-icon="plus-circle"></i>Create</button>
+            </div>
+          </li>
+      </ul>
+  </div>
+
+</nav>
+
+<!-- Table -->
+<div class="table-responsive">
+  <table datatable [dtTrigger]="tableTrigger" [dtOptions]="tableOptions" class="uk-table uk-table-striped uk-table-condensed uk-table-hover uk-table-divider">
+    <thead>
+      <tr>
+        <th>UID</th>
+        <th>Vendor</th>
+        <th>Creation date</th>
+        <th>Status</th>
+        <th data-html="true">Actions</th>
+      </tr>
+    </thead>
+  </table>
+</div>
