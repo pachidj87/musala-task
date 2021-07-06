@@ -6,22 +6,30 @@ services:
     container_name: 'gateways-mongo-database-server'
     ports: 
       - 27017:27017
-  
+    networks:
+      - webnet
+    volumes:
+      - mongodata:/mongo/db  
+
   api:
     build:
-      context: .
-      dockerfile: ./gateways/Dockerfile
+      context: ./gateways
+      dockerfile: Dockerfile
       # Could be development | production
       target: development
     volumes:
-      - .:/usr/src/app/frontend
-      - /usr/src/app/frontend/node_modules
+      - .:/usr/src/app/backend
+      - /usr/src/app/backend/node_modules
     container_name: 'gateways-nestjs-backend-server'
-    env_file: ./gateways/.env
+    links:
+      - db
+    environment:
+      - LISTEN_PORT=3000
+      - MONGO_CONNECTION_URI=mongodb://db/musala
+      - MAX_DEVICE_PER_GATEWAY=10
     ports:
       - 3000:3000
-    # Write npm run start for production 
-    command: npm run start:dev
+    command: npm run start
     networks:
       - webnet
     depends_on:
@@ -29,16 +37,19 @@ services:
       
   web:
     build:
-      context: .
-      dockerfile: ./ng-gateways/Dockerfile
+      context: ./ng-gateways
+      dockerfile: Dockerfile
       # Could be development | production
-      target: development
     volumes:
-      - .:/usr/src/app/backend
-      - /usr/src/app/backend/node_modules
+      - .:/usr/src/app/frontend
+      - /usr/src/app/frontend/node_modules
     container_name: 'gateways-angular-frontend-app'
+    environment:
+      - NGINX_PORT=9000
     ports:
-      - 9000:80
+      - 9000:9000
+    links:
+      - api
     networks:
       - webnet
     depends_on:
@@ -46,3 +57,5 @@ services:
       
 networks:
   webnet:
+volumes:
+  mongodata:

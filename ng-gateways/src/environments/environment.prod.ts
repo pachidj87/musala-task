@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  servicesURL: 'http://127.0.0.1:3000',
+  servicesURL: 'http://api:3000',
   constants: {
     cacheSize: 1,
     refreshInterval: 30000,

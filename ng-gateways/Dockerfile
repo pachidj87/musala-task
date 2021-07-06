@@ -1,37 +1,27 @@
-FROM node:alpine as development
+FROM node:14.16-alpine as build
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/web
 
-COPY ./ng-gateways/package*.json ./
-COPY ./ng-gateways/angular.json ./
+COPY ./package*.json ./
+COPY ./angular.json ./
+COPY ./tsconfig.app.json ./
+COPY ./tsconfig.json ./
+COPY ./tsconfig.spec.json ./
+COPY ./karma.conf.js ./
 
-RUN npm install --only=development
+RUN npm install && npm audit fix
 
-COPY . .
+COPY . ./
 
+# change for npm run build for production
 RUN npm ci && npm run build:dev
 
 FROM nginx:alpine
 
-COPY --from=development /usr/src/app/dist/ng-gateways /usr/share/nginx/html
+COPY --from=build /usr/src/app/web/dist/gateways /usr/share/nginx/html/app
 
-EXPOSE 80
+RUN rm /etc/nginx/conf.d/default.conf
 
-FROM node:alpine as production
+COPY ./nginx/web.conf /etc/nginx/conf.d/
 
-WORKDIR /usr/src/app
-
-COPY ./ng-gatewayspackage*.json ./
-COPY ./ng-gateways/angular.json ./
-
-RUN npm install --only=development
-
-COPY . .
-
-RUN npm ci && npm run build
-
-FROM nginx:alpine
-
-COPY --from=development /usr/src/app/dist/ng-gateways /usr/share/nginx/html
-
-EXPOSE 80
+EXPOSE 9000
