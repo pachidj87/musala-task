@@ -10,8 +10,8 @@ import {
 
 import { GatewaysService } from './gateways.service';
 import { GatewayDto } from './dto/gateway.dto';
-import { DatatablesRequestDto } from 'src/shared/dto/datatables-request.dto';
-import { IdParamDto } from 'src/shared/dto/id-param.dto';
+import { DatatablesRequestDto } from '../../shared/dto/datatables-request.dto';
+import { IdParamDto } from '../../shared/dto/id-param.dto';
 
 @Controller('gateways')
 export class GatewaysController {

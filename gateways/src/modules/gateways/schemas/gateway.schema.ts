@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 
-import { Device } from 'src/modules/devices/schemas/device.schema';
+import { Device } from '../../modules/devices/schemas/device.schema';
 import { GatewayDto } from '../dto/gateway.dto';
 
 export type GatewayDocument = Gateway & Document;

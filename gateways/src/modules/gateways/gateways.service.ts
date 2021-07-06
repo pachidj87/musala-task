@@ -3,11 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { Model } from 'mongoose';
 
-import { DatatablesRequestDto } from 'src/shared/dto/datatables-request.dto';
-import { DataTablesResultsDto } from 'src/shared/dto/datatables-results.dto';
+import { DatatablesRequestDto } from '../../shared/dto/datatables-request.dto';
+import { DataTablesResultsDto } from '../../shared/dto/datatables-results.dto';
 import { Gateway, GatewayDocument } from './schemas/gateway.schema';
 import { GatewayDto } from './dto/gateway.dto';
-import { BaseService } from 'src/shared/services/base.service';
+import { BaseService } from '../../shared/services/base.service';
 
 @Injectable()
 export class GatewaysService extends BaseService {

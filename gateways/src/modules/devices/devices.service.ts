@@ -8,11 +8,11 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { Model } from 'mongoose';
 
-import { DatatablesRequestDto } from 'src/shared/dto/datatables-request.dto';
-import { DataTablesResultsDto } from 'src/shared/dto/datatables-results.dto';
+import { DatatablesRequestDto } from '../../shared/dto/datatables-request.dto';
+import { DataTablesResultsDto } from '../../shared/dto/datatables-results.dto';
 import { Device, DeviceDocument } from './schemas/device.schema';
 import { DeviceDto } from './dto/device.dto';
-import { BaseService } from 'src/shared/services/base.service';
+import { BaseService } from '../../shared/services/base.service';
 
 @Injectable()
 export class DevicesService extends BaseService {

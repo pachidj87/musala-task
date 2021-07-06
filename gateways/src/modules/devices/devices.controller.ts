@@ -11,9 +11,9 @@ import {
 
 import { DevicesService } from './devices.service';
 import { DeviceDto } from './dto/device.dto';
-import { IdParamDto } from 'src/shared/dto/id-param.dto';
-import { DatatablesRequestDto } from 'src/shared/dto/datatables-request.dto';
-import { GatewayIdParamDto } from 'src/shared/dto/gateway-id-param.dto';
+import { IdParamDto } from '../../shared/dto/id-param.dto';
+import { DatatablesRequestDto } from '../../shared/dto/datatables-request.dto';
+import { GatewayIdParamDto } from '../../shared/dto/gateway-id-param.dto';
 
 @Controller('devices')
 export class DevicesController {
