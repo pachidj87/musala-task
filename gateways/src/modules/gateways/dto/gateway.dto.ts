@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsIP, IsNumberString } from 'class-validator';
-import { DeviceDto } from '../../modules/devices/dto/device.dto';
+import { DeviceDto } from 'src/modules/devices/dto/device.dto';
 import { Gateway } from '../schemas/gateway.schema';
 
 export class GatewayDto {
